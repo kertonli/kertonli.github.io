@@ -1,43 +1,23 @@
-# Chirpy Starter
+# Kertonli
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+Bem-Vindos ao meu blog pessoal onde compartilho informações sobre Segurança Digital, Hacking e Ferramentas do momento!
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+A caminhada é dura porém a recompensa é certa para aqueles que perseveram!
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+Lembre-se que para alcançar os seus objetivos basta que você remodele a sua forma de pensar para que você tome atitudes que te tornam mais forte!
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+Sinônimos de força:
+Cuidar de si mesmo. (Quem cuida de você? Sua mãe? A minha também risos.)
+Organização. (Lutar contra um exército organizado é completamente diferente de lutar contra bárbaros sem organização.)
+Planejamento. (Qualquer um conhece a diferença entre algo planejado e algo improvisado. A diferença é gritante.)
+Disciplina. (Qualquer um que faça um pouco por dia e que se mantenha nos trilhos uma hora chegará lá. Não tem porque correr.)
+Sabe Seus Limites. (Se você se conhece, faz instrospecção diariamente, saberá a melhor forma de se adaptar às situações e quem se adapta mais rápido leva vantagem.)
+Seja Quieto. (Ninguém conseguirá definir o seu nível. Na segunda guerra se usou criptografia por um motivo.)
+Independente. (Não depender de nada nem de ninguém é sinônimo de força. Claro que isso é impossível mas vamos tentar não sermos tão dependentes.)
+Aceita desafios. (Só há crescimento se houver desafios a serem superados. Não tenha medo de desafios nem tente apressar as coisas sem necessidade. Curta o momento se divirta. Quando você chegar lá, saiba que o melhor foi a jornada.)
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
-```
+Atalho: Força se aprende com quem é forte. Assim como eu criei esse blog baseado no jaxafed.
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+Prontos para se tornar um agente secreto? Então estou te esperando!
 
-## Usage
-
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
-
-## Contributing
-
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
-
-## License
-
-This work is published under [MIT][mit] License.
-
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+![png-transparent-club-penguin-elite-penguin-force-club-penguin-island-game-agent-game-animals-people](https://github.com/user-attachments/assets/7bd3063f-44bc-4cac-9a1c-a8fb78567610)
