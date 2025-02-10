@@ -2,7 +2,7 @@
 title: 'TryHackMe: HeartBleed'
 author: Kertonli
 categories: [TryHackMe]
-tags: [Fácil, TLS, SSL]
+tags: [Fácil, TLS, SSL, Nmap, Metasploit]
 image:
   path: assets/images/tryhackme/heartbleed/room.png
 ---
