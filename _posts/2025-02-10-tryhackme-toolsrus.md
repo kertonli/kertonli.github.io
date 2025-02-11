@@ -7,7 +7,15 @@ image:
   path: assets/images/tryhackme/toolsrus/room.png
 ---
 
-Ok, o objetivo é usar as ferramentas propostas. Vamos começar com o clássico Nmap:
+Meu alvo é http://10.10.42.84/
+
+Entrando no navegador temos uma mensagem dizendo que tem outras partes do site funcionando...
+
+![alt text](assets/images/tryhackme/toolsrus/image1.png)
+
+
+
+Ok, vamos começar com o clássico nmap rápido e em todas as portas:
 
 
 ```
