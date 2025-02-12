@@ -1,5 +1,5 @@
 ---
-title: 'TryHackMe: ToolsRus'
+title: 'TryHackMe: OhSint'
 author: Kertonli
 categories: [TryHackMe]
 tags: [Fácil, Ohsint]
