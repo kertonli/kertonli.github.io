@@ -1,5 +1,7 @@
 # Kertonli
 
+![Your Image Badge](https://tryhackme-badges.s3.amazonaws.com/kertonlipenguin.png)
+
 Bem-Vindos ao meu blog pessoal onde compartilho informações sobre Segurança Digital, Hacking e Ferramentas do momento!
 
 A caminhada é dura porém a recompensa é certa para aqueles que perseveram!
