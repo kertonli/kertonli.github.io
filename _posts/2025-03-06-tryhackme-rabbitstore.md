@@ -38,6 +38,8 @@ Nmap done: 1 IP address (1 host up) scanned in 1164.35 seconds
 
 ```
 
+![alt text](assets/images/tryhackme/rabbitstore/image1.png)
+
 Por causa da linha: |_http-title: Did not follow redirect to http://cloudsite.thm/ -- Vamos colocar essa url no /etc/hosts:
 
 ```
@@ -55,35 +57,16 @@ nano /etc/hosts
 10.10.147.29 cloudsite.thm storage.cloudsite.thm
 ```
 
-Olhando o register.js da página de registro eu consigo ver que a requisição é feita para /api/register. como meu firefox não permite eu enviar a solicitação vou fazer o curl manualmente.
+Vamos tentar registrar e logar com um usuário:
 
-register.js:
-```
-  const formData = {
-        email: this.elements.email.value,
-        password: this.elements.password.value
-    };
+![alt text](assets/images/tryhackme/rabbitstore/image2.png)
 
-    try {
-        const response = await fetch("/api/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        });
-```
+Nosso usuário está inativo.
 
-Curl:
-```
-┌──(kali㉿kali)-[~]
-└─$ curl -X POST http://storage.cloudsite.thm/api/register \
--H "Content-Type: application/json" \
--d '{"email": "teste@example.com", "password": "teste"}'   
-{"message":"User registered successfully"}      
-```
+Vamos observar o token jwt:
 
-Ao logar com nossa conta, o site nos redireciona para /inactive com a seguinte mensagem:
-```
-Sorry, this service is only for internal users working within the organization and our clients. If you are one of our clients, please ask the administrator to activate your subscription.
-```
+![alt text](assets/images/tryhackme/rabbitstore/image3.png)
+
+Ao receber o token, temos o campo Subscription. Vamos tentar dar override nessa informação na hora de registrar e na hora de logar, se o back estiver mau configurado ele irá pegar esse valor e substituir.
+
+![alt text](assets/images/tryhackme/rabbitstore/image4.png)
