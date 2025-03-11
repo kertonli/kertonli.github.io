@@ -16,3 +16,5 @@ enumerando com feroxbuster
 hydra no ssh com usuario meliodas -> bingo
 posso executar arquivo bak.py
 nao consigo editar ele porém eu sou o dono do diretório entao é só deletar e criar um novo arquivo com mesmo nome.
+
+finalizado
