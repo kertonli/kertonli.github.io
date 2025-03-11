@@ -2,7 +2,7 @@
 title: 'TryHackMe: Thompson'
 author: Kertonli
 categories: [TryHackMe]
-tags: [Fácil, Rustscan, Nmap, ]
+tags: [Fácil, Rustscan, Nmap, Metasploit]
 image:
   path: assets/images/tryhackme/thompson/room.png
 ---
