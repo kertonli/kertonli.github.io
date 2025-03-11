@@ -149,13 +149,13 @@ Nmap done: 1 IP address (1 host up) scanned in 23.47 seconds
 
 Ok, acessando a porta 8080 no browser:
 
-![alt text](assets/images/tryhackme/thompson/image1.png)
+![alt text](assets/images/tryhackme/thompson/img1.png)
 
 Temos aqui um serviço apache tomcat totalmente desprogido. Clicando em Manager App temos um formulário pedindo login e senha.
 
 Cancelando a solicitação recebemos a mensagem de erro:
 
-![alt text](assets/images/tryhackme/thompson/image3.png)
+![alt text](assets/images/tryhackme/thompson/img3.png)
 
 Como o painel está completamente desconfigurado, ele nos fornece o login e senha de administrador. Com isso, podemos usar um exploit do MetasploitFramework que exige o login e senha de administrador para obtermos um Remote Code Execution.
 
@@ -258,4 +258,4 @@ cat test.txt
 
 Desafio Concluído!
 
-![alt text](assets/images/tryhackme/thompson/image4.png)
+![alt text](assets/images/tryhackme/thompson/img4.png)
